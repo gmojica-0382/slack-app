@@ -11,6 +11,10 @@ import axios from 'axios'
 const LoginComponent = () => {
 
     let navigate = useNavigate();
+    const headers = localStorage.getItem("headers")
+    if(headers){
+        navigate("/home")
+    }
 
     const [details, setDetails] = useState({email: "", password: ""})
     const [regError, setRegError] = useState("")

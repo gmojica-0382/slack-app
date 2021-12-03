@@ -3,11 +3,15 @@ import React,{useState, useEffect} from 'react'
 import { CardContainer, CardHead, CardIcon, CardOverTitle, CardPrag, CardWrapper, InfoCard } from '../Channels/CardElements'
 import ReactPaginate from 'react-paginate';
 import { bodyStateCons } from '../Config'
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import { NewChannleInfo } from '../NewChannel/NewChannelElements';
+
 const UsersSection = ({setbodyView}) => {
     const customHeaders =  JSON.parse(localStorage.getItem("headers"))
     const [listofUsers, setlistofUsers] = useState("")
     const [pageCount, setPageCount] = useState(0);
     const [pageSlice, setpageSlice] = useState({start: 0, end:20})
+    
 
     useEffect(() => {
 
@@ -32,6 +36,29 @@ const UsersSection = ({setbodyView}) => {
             
         }
     }, [pageSlice])
+
+    const handleOnHover = (result) => {
+        // the item hovered
+    }
+
+    const handleOnFocus = () => {
+    }
+
+    const handleOnSearch = (string, results) => {
+    }
+    
+      const handleOnSelect = (item) => {
+        // the item selected
+        localStorage.setItem("Cid", item.id)
+        setbodyView(bodyStateCons.chatUser)
+        
+      }
+    
+      const formatResult = (item) => {
+        // return item
+        return (<p dangerouslySetInnerHTML={{__html: '<strong>'+item+'</strong>'}}></p>); //To format result as html
+      }
+
 
     const messageClick = (e) =>{
         localStorage.setItem("Cid", e.target.id)
@@ -61,9 +88,21 @@ const UsersSection = ({setbodyView}) => {
 
     return (
         <CardContainer id="users">
+            
             <CardOverTitle>
                 Users
+                <ReactSearchAutocomplete
+                items={listofUsers.data}
+                onSearch={handleOnSearch}
+                fuseOptions={{ keys: ["uid",] }}
+                resultStringKeyName="uid"
+                onHover={handleOnHover}
+                onSelect={handleOnSelect}
+                onFocus={handleOnFocus}
+                autoFocus
+                formatResult={formatResult}/>
             </CardOverTitle>
+
             <CardWrapper>
                 {
                     displayList()

@@ -14,10 +14,6 @@ import ChatUserSec from '../ChatUser'
 const HomeSection = () => {
     const [bodyView, setbodyView] = useState(bodyStateCons.myChannels)
 
-
-    useEffect(() => {        
-    }, [bodyView])
-
     const bodyStateViewer = () =>{
         if(bodyView === bodyStateCons.myChannels){
             return (

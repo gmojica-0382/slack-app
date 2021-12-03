@@ -4,7 +4,9 @@ import { SpecialContainer } from './SidebarsElements';
 import {Link} from "react-router-dom";
 import { bodyStateCons } from '../Config';
 const SidebarsSection = ({bodyState}) => {
+
     const userName = JSON.parse(localStorage.getItem("userinfo"))
+
     return (
         <>
         <ProSidebar collapsed={false}>
@@ -12,10 +14,10 @@ const SidebarsSection = ({bodyState}) => {
             </SidebarHeader>
             <SidebarContent>
                 <Menu iconShape="square">
-                    <MenuItem>
+                   {userName && <MenuItem>
                         {userName.uid}
                         <Link to="/home"/>
-                    </MenuItem>
+                    </MenuItem> }
                     <SubMenu title="Channels">
                         <MenuItem  onClick={()=>bodyState(bodyStateCons.createChannels)}>
                             Create New

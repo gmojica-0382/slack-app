@@ -25,6 +25,7 @@ export const CardOverTitle = styled.h1`
   font-size: 30px;
   font-family: "Roboto", sans-serif;
   letter-spacing: 5px;
+  min-width: 350px;
   font-weight: 500;
 `
 
