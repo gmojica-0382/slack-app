@@ -4,7 +4,7 @@ import { CardContainer, CardHead, CardIcon, CardOverTitle, CardPrag, CardWrapper
 import ReactPaginate from 'react-paginate';
 import { bodyStateCons } from '../Config'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-import { NewChannleInfo } from '../NewChannel/NewChannelElements';
+// import { NewChannleInfo } from '../NewChannel/NewChannelElements';
 
 const UsersSection = ({setbodyView}) => {
     const customHeaders =  JSON.parse(localStorage.getItem("headers"))
@@ -73,18 +73,29 @@ const UsersSection = ({setbodyView}) => {
             setpageSlice({start: 20 * event.selected, end:  20 * (event.selected + 1 )})
         }
 
-      return(  
-            listofUsers.data.slice(pageSlice.start, pageSlice.end).map((users, index) => 
+        return(  
+            listofUsers.data.sort( (a, b) => {
+                let ea = a.email.toLowerCase() 
+                let eb = b.email.toLowerCase() 
+                if (ea < eb) {
+                    return -1;
+                }
+                if (ea > eb) {
+                    return 1;
+                }
+                return 0;
+            }).slice(pageSlice.start, pageSlice.end).map((users, index) => 
             <InfoCard key={users.id} id={users.id} onClick={e => messageClick(e)}>
             <CardIcon id={users.id} src={`https://avatars.dicebear.com/api/bottts/${users.id}.svg`}/>
             <CardHead id={users.id} >{users.email}</CardHead>
             <CardPrag id={users.id}>{new Date(users.created_at).toLocaleDateString("en-US")}</CardPrag>
             </InfoCard>
-         )
+            )
         )
       }
     }
 
+    console.log(listofUsers)
 
     return (
         <CardContainer id="users">

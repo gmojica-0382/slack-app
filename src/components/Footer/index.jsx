@@ -1,9 +1,20 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { FaFacebook, FaGooglePlay, FaYoutube } from 'react-icons/fa'
 import { FooterContainer, FooterWrap, FooterLinkWrapper, FooterLinkItems, FooterLinkContainer, FooterLinkTitle, FooterLink, SocialIconLink, SocialIcons, SocialLogo, SocialMedia, SocialMediaWrap, WebsiteRights } from './FooterElements'
 import { animateScroll as scroll } from 'react-scroll';
+import { useNavigate } from 'react-router';
+
+
 
 const FooterSection = () => {
+
+  let navigate = useNavigate();
+  useEffect(() => {
+    let customHeader = localStorage.getItem("headers")
+    if(customHeader){
+      navigate("/home")
+    }
+  }, [])
 
   const toggleHome = () => {
     scroll.scrollToTop();
